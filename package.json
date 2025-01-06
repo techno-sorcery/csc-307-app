@@ -16,4 +16,8 @@
     "url": "https://github.com/techno-sorcery/csc-307-app/issues"
   },
   "homepage": "https://github.com/techno-sorcery/csc-307-app#readme"
+  ,
+  "workspaces": [
+      "packages/*"
+  ]
 }
