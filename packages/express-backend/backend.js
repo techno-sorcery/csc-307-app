@@ -1,11 +1,13 @@
 // backend.js
 
+import cors from "cors";
 import express from "express";
 
 const app = express();
 const port = 8000;
 
 app.use(express.json());
+app.use(cors());
 
 const users = {
   users_list: [
@@ -63,16 +65,17 @@ const addUser = (user) => {
 
 app.post("/users", (req, res) => {
     const userToAdd = req.body;
+    userToAdd.id = Math.floor(Math.random() * 100000);
     addUser(userToAdd);
-    res.send();
+
+    res.status(201).send("Content created.");
 });
 
 
 app.delete("/users", (req, res) => {
     const idToRemove = req.body;
-
     users["users_list"] = users["users_list"].filter((user) => user["id"] !== idToRemove);
-    // res.send(users["users_list"].filter((user) => user["id"] !== idToRemove));
+
     res.send(req.body);
 });
 
