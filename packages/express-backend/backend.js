@@ -64,11 +64,14 @@ const addUser = (user) => {
 
 
 app.post("/users", (req, res) => {
-    const userToAdd = req.body;
-    userToAdd.id = Math.floor(Math.random() * 100000);
+    const userToAdd = {
+        id: Math.floor(Math.random() * 100000).toString(),
+        name: req.body.name,
+        job: req.body.job
+    }
     addUser(userToAdd);
 
-    res.status(201).send("Content created.");
+    res.status(201).send(userToAdd);
 });
 
 
@@ -134,7 +137,7 @@ app.delete("/users/:id", (req, res) => {
 
     } else {
         users["users_list"] = users["users_list"].filter((user) => user["id"] !== req.params.id);
-        res.send();
+        res.status(204).send();
     }
 });
 
